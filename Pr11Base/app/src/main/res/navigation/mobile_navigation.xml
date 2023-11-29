@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_populares">
+
+    <!--
+        Fíjate que este fragment no está en el menú. No pasa absolutamente nada.
+        Es el fragment de Detalles, al que llegaremos haciendo clic en una película.
+        Bien sea en la vista de populares o en la de favoritas.
+    -->
+    <fragment
+        android:id="@+id/nav_details"
+        android:name="es.uniovi.pulso.practica10.presentacion.details.DetailsFragment"
+        android:label="Detalles"
+        tools:layout="@layout/fragment_details" />
+
+
+    <fragment
+        android:id="@+id/nav_populares"
+        android:name="es.uniovi.pulso.practica10.presentacion.populares.PopularesFragment"
+        android:label="Populares"
+        tools:layout="@layout/fragment_populares" >
+
+        <!--
+            La etiqueta action define una flecha de navegación (fíjate en la vista de diseño).
+            Le damos una id a la "flecha" e indicamos la id del fragmento de destino.
+        -->
+        <action
+            android:id="@+id/action_popularesFragment_to_detailsFragment"
+            app:destination="@+id/nav_details"/>
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_favoritas"
+        android:name="es.uniovi.pulso.practica10.presentacion.favoritas.FavoritasFragment"
+        android:label="Favoritas"
+        tools:layout="@layout/fragment_favoritas">
+        <action
+            android:id="@+id/action_favoritasFragment_to_detailsFragment"
+            app:destination="@+id/nav_details"/>
+    </fragment>
+
+
+
+</navigation>
