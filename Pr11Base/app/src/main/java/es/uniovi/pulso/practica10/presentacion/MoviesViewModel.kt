@@ -39,6 +39,7 @@ class MoviesViewModel(
     //¿Está la película en favoritos?
     val favorita : MutableLiveData<Boolean> = MutableLiveData(false)
 
+    val busquedaMovies : MutableLiveData<List<Movie>> = MutableLiveData()
 
 
     /* Se ejecuta al inicializar el modelo */
@@ -139,7 +140,16 @@ class MoviesViewModel(
      * La lista pondrá en un MutableLiveData (será un atributo)
      */
     fun searchMovies(query: String)  {
-
+        viewModelScope.launch(Dispatchers.IO) {
+            val resp = moviesRepository.searchMovies(query)
+            if (resp.isNotEmpty()) {
+                //Aquí estamos actualizando el atributo popularMovies (que es un LiveData de la lista de películas).
+                //Así, las partes de la interfaz que están observando "popularMovies", serán notificadas.
+                busquedaMovies.postValue(resp)
+            } else{
+                busquedaMovies.postValue(listOf())
+            }
+        }
     }
 }
 

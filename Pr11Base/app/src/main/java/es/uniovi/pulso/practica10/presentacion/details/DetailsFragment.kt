@@ -42,6 +42,10 @@ class DetailsFragment : Fragment() {
             mostrarInfo()
         })
 
+        viewModel.favorita.observe(viewLifecycleOwner, Observer {
+            mostrarInfo()
+        })
+
         return root
     }
 

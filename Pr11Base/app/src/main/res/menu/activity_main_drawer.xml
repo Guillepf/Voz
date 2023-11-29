@@ -10,5 +10,8 @@
         <item
             android:id="@+id/nav_favoritas"
             android:title="Favoritas" />
+        <item
+            android:id="@+id/nav_busqueda"
+            android:title="Búsqueda" />
     </group>
 </menu>

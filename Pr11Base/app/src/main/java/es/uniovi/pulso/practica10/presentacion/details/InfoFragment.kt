@@ -23,15 +23,17 @@ class InfoFragment : Fragment() {
         const val MOVIE_FECHA_ESTRENO = "FECHA_ESTRENO"
         const val MOVIE_DURACION = "DURACION"
         const val MOVIE_CARATULA = "CARATULA"
+        const val FAV = "FAV"
 
 
         @JvmStatic
-        fun newInstance(fechaEstreno: String, duracion: String, caratula : String) =
+        fun newInstance(fechaEstreno: String, duracion: String, caratula : String, favorita: Boolean) =
             InfoFragment().apply {
                 arguments = Bundle().apply {
                     putString(MOVIE_FECHA_ESTRENO, fechaEstreno)
                     putString(MOVIE_DURACION, duracion)
                     putString(MOVIE_CARATULA, caratula)
+                    putBoolean(FAV, favorita)
                 }
             }
     }

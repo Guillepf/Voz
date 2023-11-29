@@ -1,23 +1,30 @@
 package es.uniovi.pulso.practica10.presentacion.details
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import es.uniovi.pulso.practica10.R
 import es.uniovi.pulso.practica10.presentacion.MainActivity
 import es.uniovi.pulso.practica10.presentacion.MoviesViewModel
+import java.util.Locale
 
 
-class ArgumentoFragment : Fragment(){
+class ArgumentoFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private lateinit var tvArgumento : TextView
 
     lateinit var viewModel : MoviesViewModel
+
+    lateinit var tts : TextToSpeech
+
+    lateinit var locale: Locale
 
 
     private lateinit var botonLeerArgumento : Button
@@ -44,14 +51,19 @@ class ArgumentoFragment : Fragment(){
             leerArgumento()
         }
 
+        locale= Locale("ES")
+
+        tts = TextToSpeech(context, this)
+
         return root
 
     }
 
-
     fun leerArgumento() {
 
         val text = tvArgumento.text.toString()
+
+        tts.speak(text,TextToSpeech.QUEUE_ADD, null)
         /*
         * Pedimos que hable,empleando el método speak. Este método, recibirá:
         * 1. El texto.
@@ -66,6 +78,31 @@ class ArgumentoFragment : Fragment(){
          */
         
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        tts.stop()
+
+    }
+
+    override fun onInit(p0: Int) {
+        if (p0==TextToSpeech.SUCCESS){
+            tts.language=locale
+            if (p0 == TextToSpeech.LANG_MISSING_DATA || p0 == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Toast.makeText(this.context, "Idioma no soportado", Toast.LENGTH_LONG)
+            } else {
+                botonLeerArgumento.isEnabled=true
+            }
+        }
+
+
+    }
+
+
+//    Al Destruir el fragmento, se debe:
+//    Parar el atributo.
+//    Apagar el atributo.
 
 
 }

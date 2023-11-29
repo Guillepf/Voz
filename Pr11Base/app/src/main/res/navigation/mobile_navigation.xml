@@ -45,5 +45,16 @@
     </fragment>
 
 
+    <fragment
+        android:id="@+id/nav_busqueda"
+        android:name="es.uniovi.pulso.practica10.presentacion.busqueda.BusquedaFragment"
+        android:label="Busqueda"
+        tools:layout="@layout/fragment_busqueda">
+        <action
+            android:id="@+id/action_busquedaFragment_to_detailsFragment"
+            app:destination="@+id/nav_details"/>
+    </fragment>
+
+
 
 </navigation>

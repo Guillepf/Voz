@@ -121,7 +121,19 @@ class MoviesRepository(
 
 
     suspend fun searchMovies(busqueda: String) : List<Movie> {
-        return emptyList()
+        return withContext(Dispatchers.IO){
+            val respuesta = RetrofitInstance.moviesDbApi.searchMovies(
+                busqueda,
+                API,
+                "es-ES",
+                1
+            )
+            if (respuesta.body() != null)
+                respuesta.body()!!.results.map { it.toPresentation() }
+            else
+                emptyList()
+
+        }
     }
 
 }
